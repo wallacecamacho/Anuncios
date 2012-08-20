@@ -1,0 +1,68 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.prime.com.tr/ui"
+	template="/templates/inicial-template.xhtml">
+
+
+<ui:define name="center">
+
+
+<p:panel header="#{indiceBean.selectedAnuncio.nome}" >
+
+<h:panelGrid columns="3" style="width:100%">
+
+<p:panel>
+<p:graphicImage value="/img/#{indiceBean.selectedAnuncio.logoAnuncio}" />
+
+					
+	<h:panelGrid columns="1" style="width:100%">
+<h:outputLabel value="#{indiceBean.selectedAnuncio.descricao}"  style="font-weight:lighter"/>					
+					
+						<h:outputText value="#{msgs.lbl_tel} #{indiceBean.selectedAnuncio.ddd} #{indiceBean.selectedAnuncio.telefone}" />	
+						<h:outputText value="#{indiceBean.selectedAnuncio.endereco} #{indiceBean.selectedAnuncio.numero} #{indiceBean.selectedAnuncio.complemento} " style="font-weight:bold"/>
+						<h:outputText value="#{indiceBean.selectedAnuncio.uf} - #{indiceBean.selectedAnuncio.cidade}, #{indiceBean.selectedAnuncio.bairro}" style="font-weight:bold"/>
+						<p:separator />
+						
+						<h:outputLink value="#{indiceBean.selectedAnuncio.url}" style="font-weight:lighter">
+							<h:outputText value="#{indiceBean.selectedAnuncio.url}" />
+						</h:outputLink>
+	</h:panelGrid>
+</p:panel>	
+
+					<p:fieldset legend="Mensagem E-mail" >
+											<h:panelGrid columns="2" style="align:left">
+							<h:outputText value="#{msgs.lbl_nome}" />
+							<p:inputText  />
+							<h:outputText value="#{msgs.lbl_email}" />
+							<p:inputText  />
+						<h:outputText value="#{msgs.lbl_sms}" />
+						<p:inputTextarea  rows="7" cols="20" autoResize="false"/>
+						</h:panelGrid>
+					</p:fieldset>	
+
+</h:panelGrid>	
+</p:panel>
+
+<h:panelGrid columns="2" style="width:100%">
+		
+<p:gmap center="41.381542, 2.122893" zoom="15" type="ROADMAP" style="width:500px;height:300px" />
+
+
+
+
+</h:panelGrid>
+
+</ui:define>
+
+<ui:define name="right">
+					
+
+
+
+
+</ui:define>
+
+
+</ui:composition>

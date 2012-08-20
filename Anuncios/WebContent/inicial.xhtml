@@ -1,0 +1,157 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.prime.com.tr/ui">
+
+
+<f:view contentType="text/html">
+	<h:head>
+		<f:facet name="first">
+			<meta http-equiv="X-UA-Compatible" content="EmulateIE8" />
+			<meta content='text/html; charset=UTF-8' http-equiv="Content-Type" />
+			<title>PrimeFaces - ShowCase</title>
+		</f:facet>
+
+		<link type="text/css" rel="stylesheet"
+			href="{request.contextPath}/css/default.css" />
+		<link type="text/css" rel="stylesheet"
+			href="{request.contextPath}/css/syntaxhighlighter/syntaxhighlighter.css" />
+
+		<style type="text/css">
+.ui-layout-north {
+	z-index: 20 !important;
+	overflow: visible !important;;
+}
+
+.ui-layout-north .ui-layout-unit-content {
+	overflow: visible !important;
+}
+
+.ui-widget,.ui-widget .ui-widget {
+	font-size: 88% !important;
+}
+</style>
+	</h:head>
+
+
+	<h:body>
+
+		<p:layout fullPage="true" >
+
+			<p:layoutUnit id="top" position="north" size="130">
+				<h:panelGrid columns="2" style="width:100%">
+					<p:graphicImage value="img/logo_topo_portal_b_01.gif" />
+					<p:graphicImage value="img/banner-app-smartphones.gif" />
+				</h:panelGrid>
+
+				<p:menubar autoSubmenuDisplay="true">
+					<p:submenu label="Home" icon="ui-icon-document">
+						<p:submenu label="New" icon="ui-icon-contact">
+							<p:menuitem value="Project" url="#" helpText="CTRL+N" />
+							<p:menuitem value="Other" url="#" helpText="CTRL+O" />
+						</p:submenu>
+						<p:menuitem value="Open" url="#" />
+						<p:menuitem value="Quit" url="#" />
+					</p:submenu>
+
+					<p:submenu label="Cadastrar-se" icon="ui-icon-pencil">
+					</p:submenu>
+
+					<p:submenu label="Help" icon="ui-icon-help">
+						<p:menuitem value="Contents" url="#" />
+						<p:submenu label="Search" icon="ui-icon-search">
+							<p:submenu label="Text">
+								<p:menuitem value="Workspace" url="#" />
+							</p:submenu>
+							<p:menuitem value="File" url="#" />
+						</p:submenu>
+					</p:submenu>
+				</p:menubar>
+
+			</p:layoutUnit>
+
+
+			<p:layoutUnit position="center">
+
+				<h:form id="form">
+					
+					
+					<h:panelGrid columns="2">
+
+
+ <p:panel header="F.C. Barcelona" footer="Visca el Barca!">  
+        <h:outputText value="FC Barcelona is one of only three clubs never to have been relegated from La Liga and is the most successful club in Spanish football along with Real Madrid,  
+        having won twenty La Liga titles, a record twenty-five Spanish Cups, eight Spanish Super Cups, four Eva Duarte Cups and two League Cups.  
+        They are also one of the most successful clubs  in European football having won fourteen official major trophies in total,  
+        including ten UEFA competitions. They have won three UEFA Champions League titles, a record four UEFA Cup Winners' Cups,  
+        a record three InterCities Fairs Cups (the forerunner to the UEFA Europa League), three UEFA Super Cups and one FIFA Club World Cup.  
+        The club is also the only European side to have played continental football in every season since its inception in 1955." />  
+    </p:panel>  
+  
+    
+    <p:panel header="F.C. Barcelona" footer="Visca el Barca!" >  
+        						<iframe src="noticias.html"  marginwidth="0" marginheight="0" border="0" style="border:0;margin:0;width:300px;height:250px;"  >
+						
+						</iframe>  
+    </p:panel>  
+  
+
+
+					</h:panelGrid>
+					
+				</h:form>
+
+			</p:layoutUnit>
+
+
+			<p:layoutUnit id="left" position="west" size="250" resizable="true"
+				closable="false" collapsible="false" header="Options"
+				style="font-size:70%">
+
+				<p:accordionPanel activeIndex="0" autoHeight="false">
+					<p:tab title="Menu 1">
+						<h:form id="form2">
+
+							<p:growl id="messages" showDetail="true" />
+
+							<p:tree value="#{indiceBean.root}" var="node"
+								selection="#{indiceBean.selectedNode}" selectionMode="single"
+								cache="false" style="width:90%">
+
+								<p:ajax event="expand" update=":form2:messages"
+									listener="#{indiceBean.onNodeExpand}" />
+								<p:ajax event="collapse" update=":form2:messages"
+									listener="#{indiceBean.onNodeCollapse}" />
+								<p:ajax event="select"
+									update=":form2:messages :form:listaAnuncio"
+									listener="#{indiceBean.onNodeSelect}" />
+								<p:ajax event="unselect" update=":form2:messages"
+									listener="#{indiceBean.onNodeUnselect}" />
+
+								<p:treeNode>
+									<h:outputText value="#{node}" />
+								</p:treeNode>
+							</p:tree>
+						</h:form>
+					</p:tab>
+
+					<p:tab title="Menu 2">
+
+					</p:tab>
+
+					<p:tab title="Menu 3">
+						<h:outputText value="Menu 3 Content" />
+					</p:tab>
+				</p:accordionPanel>
+
+			</p:layoutUnit>
+
+		</p:layout>
+
+
+	</h:body>
+</f:view>
+</html>
+

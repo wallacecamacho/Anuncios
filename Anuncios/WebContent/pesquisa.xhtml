@@ -1,0 +1,208 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.prime.com.tr/ui">
+
+
+<f:view contentType="text/html">
+	<h:head>
+		<f:facet name="first">
+			<meta http-equiv="X-UA-Compatible" content="EmulateIE8" />
+			<meta content='text/html; charset=UTF-8' http-equiv="Content-Type" />
+			<title>PrimeFaces - ShowCase</title>
+		</f:facet>
+
+		<link type="text/css" rel="stylesheet"
+			href="{request.contextPath}/css/default.css" />
+		<link type="text/css" rel="stylesheet"
+			href="{request.contextPath}/css/syntaxhighlighter/syntaxhighlighter.css" />
+
+		<style type="text/css">
+.ui-layout-north {
+	z-index: 20 !important;
+	overflow: visible !important;
+}
+
+.ui-layout-north .ui-layout-unit-content {
+	overflow: visible !important;
+}
+
+.ui-widget,.ui-widget .ui-widget {
+	font-size: 88% !important;
+}
+</style>
+	</h:head>
+
+
+	<h:body>
+
+		<p:layout fullPage="true">
+
+			<p:layoutUnit id="top" position="north" size="130">
+				<h:panelGrid columns="2" style="width:100%">
+					<p:graphicImage value="img/logo_topo_portal_b_01.gif" />
+					<p:graphicImage value="img/banner-app-smartphones.gif" />
+				</h:panelGrid>
+
+<h:form>
+				<p:menubar autoSubmenuDisplay="true">
+					<p:submenu label="Home" icon="ui-icon-document">
+						<p:submenu label="New" icon="ui-icon-contact">
+							<p:menuitem value="Project" url="#{request.contextPath}/cadastroAnuncio" helpText="CTRL+N" />
+							<p:menuitem value="Other" url="#" helpText="CTRL+O" />
+						</p:submenu>
+						<p:menuitem value="Open" url="#" />
+						<p:menuitem value="Quit" url="#" />
+					</p:submenu>
+
+<p:menuitem  url="/cadastroAnuncio.jsf" value="Cadastro"/>
+
+
+					
+				</p:menubar>
+</h:form>
+			</p:layoutUnit>
+
+			<p:layoutUnit id="right" position="east" size="330" header="Gallery"
+				resizable="false" closable="false" collapsible="false"
+				style="text-align:center">
+
+
+				<h:panelGrid columns="1" style="width:100%">
+
+					<p:graphicImage value="/img/banner_teste.gif" />
+					<p:separator />
+
+					<p:dataGrid var="anuncio" id="listaAnuncio" widgetVar="anuncioSw"
+						value="#{indiceBean.anuncios}" columns="1" paginator="false"
+						effect="false">
+						<p:column>
+							<p:panel style="text-align:left">
+								<h:panelGrid columns="2" style="width:100%">
+									<h:outputText value="#{anuncio.descricao}" />
+									<p:graphicImage value="/img/#{anuncio.logoAnuncio}" />
+								</h:panelGrid>
+							</p:panel>
+						</p:column>
+					</p:dataGrid>
+
+				</h:panelGrid>
+
+			</p:layoutUnit>
+
+
+			<p:layoutUnit position="center">
+				<p:layout fullPage="false">
+
+					<p:layoutUnit id="inner_south" position="south" size="100">inner south</p:layoutUnit>
+
+					<p:layoutUnit id="inner_center" position="center">
+						<h:form id="form">
+							<h:panelGrid columns="2" style="width:100%">
+
+								<p:dataGrid var="anuncio" id="listaAnuncio"
+									widgetVar="anuncioSw" value="#{indiceBean.anuncios}"
+									columns="1" paginator="false" effect="false">
+
+
+
+									<p:column>
+
+										<p:panel header="#{anuncio.nome}" style="text-align:left">
+											<h:panelGrid columns="1" style="width:100%">
+												<h:panelGrid columns="2" style="width:100%">
+
+													<p:commandLink action="#{indiceBean.perfilAnuncioTemp}"
+														title="Visualizar" ajax="false">
+														<p:graphicImage value="/img/#{anuncio.logoAnuncio}" />
+														<f:setPropertyActionListener
+															target="#{indiceBean.selectedAnuncio}" value="#{anuncio}" />
+													</p:commandLink>
+
+													<h:panelGrid columns="1" style="width:100%">
+														<p:commandLink action="#{indiceBean.perfilAnuncio}"
+															title="Visualizar" ajax="false">
+															<h:outputText value="#{anuncio.descricao}" />
+															<f:setPropertyActionListener
+																target="#{indiceBean.selectedAnuncio}"
+																value="#{anuncio}" />
+														</p:commandLink>
+														<h:outputText
+															value="#{msgs.lbl_tel} #{anuncio.ddd} #{anuncio.telefone}" />
+														<h:outputText value="#{anuncio.endereco}"
+															style="font-weight:bold" />
+														<h:outputText value="#{anuncio.numero}"
+															style="font-weight:bold" />
+														<h:outputText
+															value="#{anuncio.uf} - #{anuncio.cidade}, #{anuncio.bairro}"
+															style="font-weight:bold" />
+														<p:separator />
+														<h:outputLink value="#{anuncio.url}"
+															style="font-weight:lighter">
+															<h:outputText value="#{anuncio.url}" />
+														</h:outputLink>
+													</h:panelGrid>
+
+												</h:panelGrid>
+											</h:panelGrid>
+										</p:panel>
+									</p:column>
+
+								</p:dataGrid>
+
+							</h:panelGrid>
+						</h:form>
+
+					</p:layoutUnit>
+				</p:layout>
+
+
+
+			</p:layoutUnit>
+
+
+			<p:layoutUnit id="left" position="west" size="300" resizable="true"
+				closable="false" collapsible="false" header="Options"
+				style="font-size:70%">
+
+				<p:accordionPanel activeIndex="0" autoHeight="false">
+					<p:tab title="Menu 1">
+						<h:form id="form2">
+
+							<p:growl id="messages" showDetail="true" />
+
+							<p:tree value="#{indiceBean.root}" var="node"
+								selection="#{indiceBean.selectedNode}" selectionMode="single"
+								cache="false" style="width:100%">
+
+								<p:ajax event="expand" update=":form2:messages"
+									listener="#{indiceBean.onNodeExpand}" />
+								<p:ajax event="collapse" update=":form2:messages"
+									listener="#{indiceBean.onNodeCollapse}" />
+								<p:ajax event="select"
+									update=":form2:messages :form:listaAnuncio"
+									listener="#{indiceBean.onNodeSelect}" />
+								<p:ajax event="unselect" update=":form2:messages"
+									listener="#{indiceBean.onNodeUnselect}" />
+
+								<p:treeNode>
+									<h:outputText value="#{node}" />
+								</p:treeNode>
+							</p:tree>
+						</h:form>
+					</p:tab>
+
+					
+				</p:accordionPanel>
+
+			</p:layoutUnit>
+
+		</p:layout>
+
+
+	</h:body>
+</f:view>
+</html>
+

@@ -1,0 +1,141 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.prime.com.tr/ui"
+	xmlns:utils="http://java.sun.com/jsf/composite/utils"
+	template="/templates/inicial-template.xhtml">
+
+
+
+
+	<ui:define name="center">
+		<h:form>
+
+
+Cadastro
+<p:separator />
+
+			<p:wizard widgetVar="wiz"
+				flowListener="#{cadastroAnuncio.onFlowProcess}">
+
+				<p:tab id="enderecoTab" title="#{msgs.lbl_endereco}">
+					<p:panel header="#{msgs.lbl_frm_end}">
+					<h:panelGrid columns="1" style="width:70%">
+						<p:messages id="messages" showDetail="false" autoUpdate="true"
+							style="width:70%" />
+
+						
+
+							
+
+							<h:panelGrid columns="2" style="width:70%">
+							
+							<utils:localidadesComp
+								valBairro="#{cadastroAnuncio.buscaLocalidades.bairroVal}"
+								valCidade="#{cadastroAnuncio.buscaLocalidades.cidadeVal}"
+								valUf="#{cadastroAnuncio.buscaLocalidades.ufVal}" />
+
+<h:outputText value="" />
+								<h:outputText value="#{msgs.lbl_endereco}" />
+								<p:inputText maxlength="100" size="35"
+									value="#{cadastroAnuncio.anuncio.endereco}" required="true"
+									id="endereco" label="#{msgs.lbl_endereco}" />
+
+
+								<h:outputText value="#{msgs.lbl_numero}" />
+								<p:inputText maxlength="8" size="4"
+									value="#{cadastroAnuncio.anuncio.numero}" required="true"
+									id="numero" label="#{msgs.lbl_numero}" />
+
+								<h:outputText value="#{msgs.lbl_complemento}" />
+								<p:inputText maxlength="100" size="35"
+									value="#{cadastroAnuncio.anuncio.complemento}" required="true"
+									id="complemento" label="#{msgs.lbl_complemento}" />
+
+
+
+								<h:outputText value="#{msgs.lbl_cep}" />
+								<p:inputText maxlength="8" size="10"
+									value="#{cadastroAnuncio.anuncio.cep}" required="true" id="cep"
+									label="Cep" />
+
+
+								<h:outputText value="#{msgs.lbl_email}" />
+								<p:inputText maxlength="200" size="35"
+									value="#{cadastroAnuncio.anuncio.email}" required="true"
+									id="email" label="Email" />
+
+								<h:outputText value="#{msgs.lbl_site}" />
+								<p:inputText maxlength="300" size="35"
+									value="#{cadastroAnuncio.anuncio.url}" required="true"
+									id="site" label="Site" />
+
+
+								<h:outputText value="#{msgs.lbl_tel}" />
+								<h:panelGrid columns="3" style="width:70%">
+									<p:inputText maxlength="2" size="3"
+										value="#{cadastroAnuncio.anuncio.ddd}" required="false"
+										id="ddd" label="Ddd" />-
+									<p:inputText maxlength="8" size="10"
+										value="#{cadastroAnuncio.anuncio.telefone}" required="true"
+										id="telefone" label="Telefone" />
+								</h:panelGrid>
+
+
+							</h:panelGrid>
+						
+
+					</h:panelGrid>
+					</p:panel>
+				</p:tab>
+
+
+				<p:tab id="descricaoTab" title="#{msgs.lbl_descricao}">
+
+					<h:panelGrid columns="1" style="width:70%">
+						<p:messages  showDetail="false" autoUpdate="true"
+							style="width:70%" />
+
+						<p:panel header="#{msgs.lbl_frm_end}">
+
+
+							<h:outputText value="#{msgs.lbl_tipoAnuncio}" />
+							<p:selectOneMenu id="tipo"
+								value="#{cadastroAnuncio.tipoAnuncio.idTipo}" required="true"
+								label="Ramo da Empresa">
+								<f:selectItem itemLabel="Selecione" itemValue="" />
+								<f:selectItems value="#{cadastroAnuncio.buscaTiposAnuncio()}"
+									itemLabel="#{tipo.desctTipo}" itemValue="#{tipo.idTipo}"
+									var="tipo" />
+							</p:selectOneMenu>
+
+							<h:outputText value="#{msgs.lbl_nome_empresa}" />
+							<p:inputText maxlength="100" size="35"
+								value="#{cadastroAnuncio.anuncio.nome}" required="true"
+								id="nomeEmpresa" label="Nome Empresa" />
+
+							<h:panelGrid columns="1" style="width:70%">
+								<h:outputText value="#{msgs.lbl_descricao}" />
+								<p:inputText maxlength="200" size="50"
+									value="#{cadastroAnuncio.anuncio.descricao}" required="true"
+									id="descricao" label="Descrição" />
+								<h:outputText value="#{msgs.lbl_descricao_comp}" />
+								<p:editor id="editor"
+									value="#{cadastroAnuncio.anuncio.descricaoCompleta}"
+									width="450" />
+									</h:panelGrid>
+						</p:panel>
+					</h:panelGrid>
+				</p:tab>
+
+
+			</p:wizard>
+
+		</h:form>
+	</ui:define>
+
+
+
+
+</ui:composition>

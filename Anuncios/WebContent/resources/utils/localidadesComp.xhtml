@@ -1,0 +1,92 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.prime.com.tr/ui"
+	xmlns:composite="http://java.sun.com/jsf/composite">
+
+
+<f:view contentType="text/html">
+	<h:head>
+		<f:facet name="first">
+			<meta http-equiv="X-UA-Compatible" content="EmulateIE8" />
+			<meta content='text/html; charset=UTF-8' http-equiv="Content-Type" />
+			
+		</f:facet>
+
+		<link type="text/css" rel="stylesheet"
+			href="{request.contextPath}/css/default.css" />
+		<link type="text/css" rel="stylesheet"
+			href="{request.contextPath}/css/syntaxhighlighter/syntaxhighlighter.css" />
+
+		<script src="http://maps.google.com/maps/api/js?sensor=false"
+			type="text/javascript"></script>
+
+		<style type="text/css">
+.ui-layout-north {
+	z-index: 20 !important;
+	overflow: visible !important;;
+}
+
+.ui-layout-north .ui-layout-unit-content {
+	overflow: visible !important;
+}
+
+.ui-widget,.ui-widget .ui-widget {
+	font-size: 88% !important;
+}
+</style>
+	</h:head>
+
+
+	<h:body>
+
+
+		<composite:interface >
+			<composite:attribute name="val_Uf"></composite:attribute>
+			<composite:attribute name="val_Cidade"></composite:attribute>
+			<composite:attribute name="val_Bairro"></composite:attribute>
+		</composite:interface>
+		<!-- No attributes -->
+
+		<composite:implementation>
+
+			
+
+				
+					<h:panelGrid columns="2" cellpadding="5" style="width:70%">
+
+						<h:outputText value="#{msgs.lbl_uf}" />
+						<p:selectOneMenu id="city" value="#{cc.attrs.val_Uf}">
+							<f:selectItem itemLabel="Selecione" itemValue="" />
+							<f:selectItems value="#{buscaLoc.ufs}"
+								itemLabel="#{uf.descricao}" itemValue="#{uf.idUf}" var="uf" />
+							<p:ajax update="cidades" listener="#{buscaLoc.buscaCidades()}" />
+						</p:selectOneMenu>
+
+						<h:outputText value="#{msgs.lbl_cidade}" />
+						<p:selectOneMenu id="cidades" value="#{cc.attrs.val_Cidade}">
+							<f:selectItem itemLabel="Selecione" itemValue="" />
+							<f:selectItems value="#{buscaLoc.cidades}"
+								itemLabel="#{cidade.descricao}" itemValue="#{cidade.idCidade}"
+								var="cidade" />
+							<p:ajax update="bairros" listener="#{buscaLoc.buscaBairros()}" />
+						</p:selectOneMenu>
+
+						<h:outputText value="#{msgs.lbl_bairro}" />
+						<p:selectOneMenu id="bairros" value="#{cc.attrs.val_Bairro}">
+							<f:selectItem itemLabel="Selecione" itemValue="" />
+							<f:selectItems value="#{buscaLoc.bairros}"
+								itemLabel="#{bairro.descricao}" itemValue="#{bairro.idBairro}"
+								var="bairro" />
+						</p:selectOneMenu>
+
+					</h:panelGrid>
+
+				
+			
+		</composite:implementation>
+	</h:body>
+</f:view>
+</html>

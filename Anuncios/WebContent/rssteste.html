@@ -1,0 +1,54 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+  <title>Google AJAX Feed API - Dynamic Feed Control</title>
+  <style type="text/css">
+    @import url("gfdynamicfeedcontrol.css");
+
+    body {
+      background-color: white;
+      color: black;
+      font-family: Arial;
+      font-size: small;
+      margin: 0;
+    }
+    #feedGadget { 
+      margin-top : 20px;
+      margin-left: auto;
+      margin-right: auto;
+      width : 440px;
+      font-size: 16px;
+      color: #9CADD0;
+    }
+
+  </style>
+
+
+  <script src="gfdynamicfeedcontrol.js" type="text/javascript"></script>
+
+  <script type="text/javascript">
+    function showGadget() {
+      var feeds = [
+       {title:'People',
+        url:'http://rss.people.com/web/people/rss/topheadlines/index.xml'},
+       {title:'E-Online',
+        url:'http://www.eonline.com/syndication/feeds/rssfeeds/topstories.xml'},
+       {title:'TMZ',
+        url:'http://www.tmz.com/rss.xml'}];
+
+      new GFdynamicFeedControl(feeds, 'feedGadget',
+                               {numResults : 3, stacked : true,
+                               title: "Hollywood News"});
+    }
+    google.load("feeds", "1");
+    google.setOnLoadCallback(showGadget);
+  </script>
+
+</head>
+<body>
+
+  <div id="feedGadget">Loading...</div>
+
+</body>
+</html>
