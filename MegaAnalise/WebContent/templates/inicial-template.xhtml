@@ -1,0 +1,89 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.prime.com.tr/ui">
+
+
+<f:view contentType="text/html">
+	<h:head>
+		<f:facet name="first">
+			<meta http-equiv="X-UA-Compatible" content="EmulateIE8" />
+			<meta content='text/html; charset=UTF-8' http-equiv="Content-Type" />
+			<title>PrimeFaces - ShowCase</title>
+		</f:facet>
+
+		<link type="text/css" rel="stylesheet"
+			href="{request.contextPath}/css/default.css" />
+		<link type="text/css" rel="stylesheet"
+			href="{request.contextPath}/css/syntaxhighlighter/syntaxhighlighter.css" />
+			
+		
+		<style type="text/css">
+.ui-layout-north {
+	z-index: 20 !important;
+	overflow: visible !important;;
+}
+
+.ui-layout-north .ui-layout-unit-content {
+	overflow: visible !important;
+}
+
+.ui-widget,.ui-widget .ui-widget {
+	font-size: 88% !important;
+}
+</style>
+	</h:head>
+
+
+	<h:body>
+
+		<p:layout fullPage="true" >
+
+			<p:layoutUnit id="top" position="north" size="130">
+				<h:panelGrid columns="2" style="width:100%">
+					<p:graphicImage value="img/logo_topo_portal_b_01.gif" />
+					<p:graphicImage value="img/banner-app-smartphones.gif" />
+				</h:panelGrid>
+
+				<p:menubar autoSubmenuDisplay="true">
+					<p:submenu label="Home" icon="ui-icon-document">
+						<p:submenu label="New" icon="ui-icon-contact">
+							<p:menuitem value="Project" url="#" helpText="CTRL+N" />
+							<p:menuitem value="Other" url="#" helpText="CTRL+O" />
+						</p:submenu>
+						<p:menuitem value="Open" url="#" />
+						<p:menuitem value="Quit" url="#" />
+					</p:submenu>
+
+<p:menuitem  url="/cadastroAnuncio.jsf" value="Cadastro"/>
+
+					
+				</p:menubar>
+
+			</p:layoutUnit>
+
+
+			<p:layoutUnit position="center">
+				<ui:insert name="center">center</ui:insert>
+			</p:layoutUnit>
+
+
+
+
+			<p:layoutUnit id="left" position="west" size="180" resizable="true"
+				closable="false" collapsible="false" 
+				style="font-size:80%">
+
+				
+
+			</p:layoutUnit>
+
+		</p:layout>
+
+
+	</h:body>
+</f:view>
+</html>
+

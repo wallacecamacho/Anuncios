@@ -1,0 +1,51 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.prime.com.tr/ui"
+	xmlns:utils="http://java.sun.com/jsf/composite/utils"
+	template="/templates/inicial-template.xhtml">
+
+	
+
+
+<ui:define name="center">
+<h:form enctype="multipart/form-data"> 
+
+
+Cadastro
+<p:separator />
+
+
+
+<h:panelGrid columns="1"  style="width:70%" >
+<p:messages id="messages" showDetail="false" autoUpdate="true" style="width:70%"/>
+
+<p:panel>
+<h:panelGrid columns="2"  style="width:70%" >
+
+<p:fileUpload fileUploadListener="#{sorteiAction.fileUploadController.handleFileUpload}"  
+            mode="advanced"   
+            update="messages"  
+            sizeLimit="100000"   
+            allowTypes="/(\.|\/)(gif|jpe?g|png)$/"/>  
+  
+    <p:growl id="messagesG" showDetail="true"/> 
+
+</h:panelGrid>
+</p:panel>
+
+
+
+
+
+</h:panelGrid>
+ 	
+
+</h:form>
+</ui:define>
+
+
+
+
+</ui:composition>
