@@ -24,20 +24,11 @@ Cadastro
 <p:panel>
 <h:panelGrid columns="2"  style="width:70%" >
 
-<p:fileUpload fileUploadListener="#{sorteioAction.fileUploadController.handleFileUpload}"  
-            mode="advanced"   
-            update="messages, messagesG"  
-            sizeLimit="1000000"   
-            allowTypes="/(\.|\/)(gif|jpe?g|png|csv)$/"/>  
-  
-    
-    <p:inputText  maxlength="2" size="3" value="#{sorteioAction.teste}" label="teste"/>
-    <p:commandButton   value="tester" action="#{sorteioAction.testaP()}" update="messagesG"/>
 
 </h:panelGrid>
 </p:panel>
 
-
+<h:outputText value="#{sorteioAction.teste}" />
 
 
 

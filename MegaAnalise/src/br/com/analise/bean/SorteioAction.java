@@ -1,5 +1,6 @@
 package br.com.analise.bean;
 
+import javax.enterprise.context.RequestScoped;
 import javax.enterprise.inject.Model;
 import javax.inject.Inject;
 import javax.inject.Named;
@@ -10,8 +11,8 @@ import br.com.analise.model.Sorteio;
 import br.com.analise.ui.primefaces.FileUploadController;
 
 
-@Named
-@Model
+@Named("sorteioAction")
+@RequestScoped
 public class SorteioAction {
 
 	@Inject
@@ -23,6 +24,21 @@ public class SorteioAction {
 	
 	@Inject
 	private FileUploadController fileUploadController;
+	
+	private String teste;
+	
+	public String testaP(){
+		System.out.println(teste);
+		return "teste";
+	}
+
+	public String getTeste() {
+		return teste;
+	}
+
+	public void setTeste(String teste) {
+		this.teste = teste;
+	}
 
 	public Sorteio getSorteio() {
 		return sorteio;
