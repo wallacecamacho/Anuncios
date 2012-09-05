@@ -68,7 +68,7 @@ public class Sorteio implements java.io.Serializable {
 	private BigDecimal rateioQuadra;
 	
 	@Column(name = "acumulado")
-	private BigDecimal acumulado;
+	private String acumulado;
 	
 	@Column(name = "valorAcumulado")
 	private BigDecimal valorAcumulado;
@@ -200,11 +200,11 @@ public class Sorteio implements java.io.Serializable {
 		this.rateioQuadra = rateioQuadra;
 	}
 
-	public BigDecimal getAcumulado() {
+	public String getAcumulado() {
 		return acumulado;
 	}
 
-	public void setAcumulado(BigDecimal acumulado) {
+	public void setAcumulado(String acumulado) {
 		this.acumulado = acumulado;
 	}
 

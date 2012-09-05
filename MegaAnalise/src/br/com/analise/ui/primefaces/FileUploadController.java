@@ -2,15 +2,20 @@ package br.com.analise.ui.primefaces;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.Serializable;
 
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 
 import org.primefaces.event.FileUploadEvent;
 
-public class FileUploadController {
+public class FileUploadController implements Serializable{
 	
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -4022114392622437394L;
 	private InputStream fileUploaded;
 	
 		
