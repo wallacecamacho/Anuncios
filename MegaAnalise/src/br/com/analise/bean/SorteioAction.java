@@ -60,7 +60,9 @@ public class SorteioAction implements Serializable{
 			
 				val = br.readLine();				
 
+				if (val!=null){
 				regs = val.split(";");
+				
 				
 				SimpleDateFormat dFormat = new SimpleDateFormat("dd/MM/yyyy");
 				
@@ -74,20 +76,18 @@ public class SorteioAction implements Serializable{
 				sorteio.setDezena3(new Integer(regs[4]));
 				sorteio.setDezena4(new Integer(regs[5]));
 				sorteio.setDezena5(new Integer(regs[6]));
-				sorteio.setDezena5(new Integer(regs[7]));
-				sorteio.setDezena6(new Integer(regs[8]));				
-				
-				sorteio.setArrecadacaoTotal(new BigDecimal(regs[9]));
-				sorteio.setGanhadoresSena(new Integer(regs[10]));
-				sorteio.setRateioSena(new BigDecimal(regs[11]));
-				sorteio.setGanhadoresQuina(new Integer(regs[12]));
-				sorteio.setRateioQuina(new BigDecimal(regs[13]));
-				sorteio.setGanhadoresQuadra(new Integer(regs[14]));
-				sorteio.setRateioQuadra(new BigDecimal(regs[15]));
-				sorteio.setAcumulado(new BigDecimal(regs[16]));
-				sorteio.setValorAcumulado(new BigDecimal(regs[17]));
-				sorteio.setEstimativaPrêmio(new BigDecimal(regs[18]));
-				sorteio.setAcumuladoMegadaVirada(new BigDecimal(regs[19]));
+				sorteio.setDezena6(new Integer(regs[7]));				
+				sorteio.setArrecadacaoTotal(new BigDecimal(regs[8]));
+				sorteio.setGanhadoresSena(new Integer(regs[9]));
+				sorteio.setRateioSena(new BigDecimal(regs[10]));
+				sorteio.setGanhadoresQuina(new Integer(regs[11]));
+				sorteio.setRateioQuina(new BigDecimal(regs[12]));
+				sorteio.setGanhadoresQuadra(new Integer(regs[13]));
+				sorteio.setRateioQuadra(new BigDecimal(regs[14]));
+				sorteio.setAcumulado(regs[15]);
+				sorteio.setValorAcumulado(new BigDecimal(regs[16]));
+				sorteio.setEstimativaPrêmio(new BigDecimal(regs[17]));
+				sorteio.setAcumuladoMegadaVirada(new BigDecimal(regs[18]));
 					
 				} catch (ParseException e) {
 					e.printStackTrace();
@@ -96,7 +96,7 @@ public class SorteioAction implements Serializable{
 				insert(sorteio);
 				
 			
-					
+				}	
 			
 		}
 
