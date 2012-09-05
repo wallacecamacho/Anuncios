@@ -1,10 +1,26 @@
 package br.com.analise.bean;
 
-import javax.enterprise.context.RequestScoped;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.Serializable;
+import java.math.BigDecimal;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+
+import javax.ejb.Stateful;
+import javax.ejb.Stateless;
+import javax.enterprise.context.Dependent;
+import javax.enterprise.context.SessionScoped;
 import javax.enterprise.inject.Model;
+import javax.faces.application.FacesMessage;
+import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import javax.inject.Named;
 import javax.persistence.EntityManager;
+
+import org.primefaces.event.FileUploadEvent;
 
 import br.com.analise.data.AnaliseRepository;
 import br.com.analise.model.Sorteio;
@@ -12,32 +28,83 @@ import br.com.analise.ui.primefaces.FileUploadController;
 
 
 @Named("sorteioAction")
-@RequestScoped
-public class SorteioAction {
+@SessionScoped
+@Stateful
+public class SorteioAction implements Serializable{
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -4752146545039016666L;
 
 	@Inject
 	@AnaliseRepository
 	private EntityManager em;
-	
+
 	@Inject
 	private Sorteio sorteio;
-	
+
 	@Inject
 	private FileUploadController fileUploadController;
-	
-	private String teste;
-	
-	public String testaP(){
-		System.out.println(teste);
+
+	public String carregar() throws IOException{
+
+		BufferedReader br = new BufferedReader( new InputStreamReader(fileUploadController.getFileUploaded()));
+		//boolean stillReading = true;
+		String[] regs = null;
+		String val = "";
+		Sorteio sorteio = null;
+		while ( val != null ) {
+			
+				sorteio = new Sorteio();			
+			
+				val = br.readLine();				
+
+				regs = val.split(";");
+				
+				SimpleDateFormat dFormat = new SimpleDateFormat("dd/MM/yyyy");
+				
+				try {
+				
+				
+				sorteio.setIdSorteio(new Integer(regs[0]));
+				sorteio.setDataSorteio(dFormat.parse(regs[1]));				
+				sorteio.setDezena1(new Integer(regs[2]));
+				sorteio.setDezena2(new Integer(regs[3]));
+				sorteio.setDezena3(new Integer(regs[4]));
+				sorteio.setDezena4(new Integer(regs[5]));
+				sorteio.setDezena5(new Integer(regs[6]));
+				sorteio.setDezena5(new Integer(regs[7]));
+				sorteio.setDezena6(new Integer(regs[8]));				
+				
+				sorteio.setArrecadacaoTotal(new BigDecimal(regs[9]));
+				sorteio.setGanhadoresSena(new Integer(regs[10]));
+				sorteio.setRateioSena(new BigDecimal(regs[11]));
+				sorteio.setGanhadoresQuina(new Integer(regs[12]));
+				sorteio.setRateioQuina(new BigDecimal(regs[13]));
+				sorteio.setGanhadoresQuadra(new Integer(regs[14]));
+				sorteio.setRateioQuadra(new BigDecimal(regs[15]));
+				sorteio.setAcumulado(new BigDecimal(regs[16]));
+				sorteio.setValorAcumulado(new BigDecimal(regs[17]));
+				sorteio.setEstimativaPrêmio(new BigDecimal(regs[18]));
+				sorteio.setAcumuladoMegadaVirada(new BigDecimal(regs[19]));
+					
+				} catch (ParseException e) {
+					e.printStackTrace();
+				}
+				
+				insert(sorteio);
+				
+			
+					
+			
+		}
+
 		return "teste";
 	}
-
-	public String getTeste() {
-		return teste;
-	}
-
-	public void setTeste(String teste) {
-		this.teste = teste;
+	
+	public void insert(Sorteio pSorteio){
+		em.persist(pSorteio);
 	}
 
 	public Sorteio getSorteio() {
@@ -55,7 +122,6 @@ public class SorteioAction {
 	public void setFileUploadController(FileUploadController fileUploadController) {
 		this.fileUploadController = fileUploadController;
 	}
-	
-	
-	
+
+
 }
