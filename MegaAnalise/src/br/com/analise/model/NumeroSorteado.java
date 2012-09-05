@@ -1,8 +1,12 @@
-package br.com.analise.bean;
+package br.com.analise.model;
 
 import javax.persistence.Column;
+import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.Table;
 
+@Entity
+@Table(name="numeroSorteado" )
 public class NumeroSorteado {
 
 	@Id
