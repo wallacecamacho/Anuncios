@@ -1,11 +1,15 @@
 package br.com.analise.model;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -79,7 +83,18 @@ public class Sorteio implements java.io.Serializable {
 	@Column(name = "acumuladoMegadaVirada")
 	private BigDecimal acumuladoMegadaVirada;
 	
+	@OneToMany(fetch=FetchType.LAZY, mappedBy="sorteio")
+	private List<NumeroSorteado> NumeroSorteados = new ArrayList<NumeroSorteado>(0);
 	
+	public Sorteio() {
+		super();
+	}
+	
+	public Sorteio(Integer idSorteio) {
+		super();
+		this.idSorteio = idSorteio;
+	}
+
 	public Integer getIdSorteio() {
 		return idSorteio;
 	}
@@ -231,7 +246,15 @@ public class Sorteio implements java.io.Serializable {
 	public void setAcumuladoMegadaVirada(BigDecimal acumuladoMegadaVirada) {
 		this.acumuladoMegadaVirada = acumuladoMegadaVirada;
 	}
-	
+
+	public List<NumeroSorteado> getNumeroSorteados() {
+		return NumeroSorteados;
+	}
+
+	public void setNumeroSorteados(List<NumeroSorteado> numeroSorteados) {
+		NumeroSorteados = numeroSorteados;
+	}
+
 	
 	
 	
