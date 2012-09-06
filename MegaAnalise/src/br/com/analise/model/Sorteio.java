@@ -5,7 +5,10 @@ import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -79,6 +82,9 @@ public class Sorteio implements java.io.Serializable {
 	@Column(name = "acumuladoMegadaVirada")
 	private BigDecimal acumuladoMegadaVirada;
 	
+    @ManyToOne(fetch=FetchType.LAZY)
+    @JoinColumn(name="idNumeroSorteado", nullable=false)
+	private NumeroSorteado numeroSorteado;
 	
 	public Integer getIdSorteio() {
 		return idSorteio;
@@ -230,6 +236,14 @@ public class Sorteio implements java.io.Serializable {
 
 	public void setAcumuladoMegadaVirada(BigDecimal acumuladoMegadaVirada) {
 		this.acumuladoMegadaVirada = acumuladoMegadaVirada;
+	}
+
+	public NumeroSorteado getNumeroSorteado() {
+		return numeroSorteado;
+	}
+
+	public void setNumeroSorteado(NumeroSorteado numeroSorteado) {
+		this.numeroSorteado = numeroSorteado;
 	}
 	
 	
