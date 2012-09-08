@@ -4,17 +4,19 @@
 	xsi:schemaLocation="http://java.sun.com/xml/ns/persistence http://java.sun.com/xml/ns/persistence/persistence_2_0.xsd">
 	<persistence-unit name="MegaAnalise" transaction-type="JTA">
 		<provider>org.hibernate.ejb.HibernatePersistence</provider>
-		<jta-data-source>java:jboss/datasources/AnaliseDS</jta-data-source>
+		<jta-data-source>java:jboss/datasources/AnalisemegaDS</jta-data-source>
 		<class>br.com.analise.model.Sorteio</class>
 		
 	<!-- <class>com.sample.model.Property</class> -->	
-		<properties>
-			<property name="hibernate.dialect" value="org.hibernate.dialect.H2Dialect" />
-			<property name="hibernate.max_fetch_depth" value="3" />
-			<property name="hibernate.hbm2ddl.auto" value="update" />
-			<property name="hibernate.show_sql" value="true" />
-			<property name="jboss.entity.manager.factory.jndi.name" value="java:/AnaliseEntityManagerFactory"/>
-		</properties>
+
+		      <properties>
+         <property name="hibernate.dialect" value="org.hibernate.dialect.MySQL5InnoDBDialect"/>
+         <property name="hibernate.hbm2ddl.auto" value="update"/>
+         <property name="hibernate.show_sql" value="true"/>
+         <property name="hibernate.format_sql" value="true"/>
+        <property name="jboss.entity.manager.factory.jndi.name" value="java:/AnaliseEntityManagerFactory"/>    
+      </properties>
+		
 	</persistence-unit>
 
 </persistence>
