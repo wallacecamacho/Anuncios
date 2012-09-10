@@ -1,6 +1,8 @@
 package br.com.analise.bean;
 
 import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.Serializable;
 import java.math.BigDecimal;
@@ -10,11 +12,14 @@ import java.util.List;
 
 import javax.ejb.Stateful;
 import javax.enterprise.context.SessionScoped;
+import javax.faces.application.FacesMessage;
+import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import javax.inject.Named;
 import javax.persistence.EntityManager;
 
 import org.jboss.solder.logging.Logger;
+import org.primefaces.event.FileUploadEvent;
 
 import br.com.analise.bean.query.TemplateNativeQuery;
 import br.com.analise.bean.query.TemplateQuery;
@@ -51,6 +56,8 @@ public class SorteioAction implements Serializable{
 	
 	@Inject
 	TemplateNativeQuery templateNativeQuery;
+	
+	private InputStream fileUploaded;
 
 	public Sorteio getSorteio() {
 		return sorteio;
@@ -69,10 +76,13 @@ public class SorteioAction implements Serializable{
 	}
 
 
+	public String carregar(FileUploadEvent event) throws IOException, ParseException {  
+        FacesMessage msg = new FacesMessage("Succesful", event.getFile().getFileName() + " is uploaded.");
+        FacesContext.getCurrentInstance().addMessage(null, msg);  
+        
+        this.fileUploaded =  event.getFile().getInputstream();	
 
-	public String carregar() throws Exception{
-
-		BufferedReader br = new BufferedReader( new InputStreamReader(fileUploadController.getFileUploaded()));
+		BufferedReader br = new BufferedReader( new InputStreamReader(fileUploaded));
 		//boolean stillReading = true;
 		String[] regs = null;
 		String val = "";
@@ -123,20 +133,42 @@ public class SorteioAction implements Serializable{
 
 		}
 
-		List<Object[]> teste = this.buscaTiposAnuncio();
+		List<Sorteio> sorteios = this.buscaSorteios();
 		
-		for(Object[] ob: teste){
+		for(Sorteio ob: sorteios){
 			
-			NumeroSorteado numeroSorteado = new NumeroSorteado();
-			numeroSorteado.setIdNumeroSorteado(new Integer((Integer) ob[0]));
-			numeroSorteado.setNumeroSorteado(new Integer((Integer) ob[1]));
-			numeroSorteado.setSorteio( new Sorteio((new Integer((Integer) ob[0]))));
-			
-			this.insertNumeroSoteiado(numeroSorteado);
+			for (int i =0; i <= 5; i++ ){
+				
+				NumeroSorteado numeroSorteado = new NumeroSorteado();
+				if(i==0){
+					numeroSorteado.setNumeroSorteado(new Integer((Integer) ob.getDezena1()));
+				}
+				if(i==1){
+					numeroSorteado.setNumeroSorteado(new Integer((Integer) ob.getDezena2()));
+				}
+				if(i==2){
+					numeroSorteado.setNumeroSorteado(new Integer((Integer) ob.getDezena3()));
+				}
+				if(i==3){
+					numeroSorteado.setNumeroSorteado(new Integer((Integer) ob.getDezena4()));
+				}
+				if(i==4){
+					numeroSorteado.setNumeroSorteado(new Integer((Integer) ob.getDezena5()));
+				}
+				if(i==5){
+					numeroSorteado.setNumeroSorteado(new Integer((Integer) ob.getDezena6()));
+				}
+				
+				numeroSorteado.setSorteio( ob );
+				
+				this.insertNumeroSoteiado(numeroSorteado);
+				
+			}
+
 			
 		}
 		
-		logger.info("  " + teste.size());
+		logger.info("  " + sorteios.size());
 		
 		return "teste";
 	}
@@ -156,5 +188,8 @@ public class SorteioAction implements Serializable{
 		return templateNativeQuery.getAllSorteios();
 	}
 
+	public List<Sorteio> buscaSorteios(){
+		return templateQuery.getAllSorteios();
+	}
 
 }
