@@ -3,9 +3,9 @@ package br.com.analise.bean.query;
 import java.io.Serializable;
 import java.util.List;
 
-
 import br.com.analise.handler.services.Query;
 import br.com.analise.handler.services.QueryService;
+import br.com.analise.model.NumeroSorteado;
 import br.com.analise.model.Sorteio;
 
 
@@ -25,4 +25,7 @@ public interface TemplateQuery extends Serializable{
 	 		"union select t.dezena6 dez,idSorteio  from Sorteio t ")
 	   public List<Sorteio> getAllSorteiosG();
 	
+	 @Query("select   n.numeroSorteado  from  NumeroSorteado n group by  n.numeroSorteado")
+	   public List<NumeroSorteado> getCountNumeroSorteios();
+
 }
