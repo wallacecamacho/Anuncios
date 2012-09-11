@@ -44,11 +44,12 @@ public class ChartBean {
         categoryModel = new CartesianChartModel();  
   
         ChartSeries numeros = new ChartSeries();  
-        numeros.setLabel("numeros");  
+        numeros.setLabel("números sorteados");  
   
       
         for(Object[] sor: numerosSoreios()){
-           	numeros.set((String)sor[0], new Integer((Integer) sor[1])); 
+        	
+        	numeros.set(sor[0],new Integer (sor[1].toString())); 
         }
         
       

@@ -14,7 +14,7 @@ public interface TemplateNativeQuery extends Serializable{
 			"	 	union select s.dezena1 dez,  s.idsorteio   from sorteio s union select s.dezena1 dez,  s.idsorteio   from sorteio s order by 1")
 	public List<Object[]> getAllSorteios();
 
-	@Query("select  cast(n.numeroSorteado as varchar), count(n.numeroSorteado)  from  NumeroSorteado n group by  n.numeroSorteado")
+	@Query("select  n.numeroSorteado, count(n.numeroSorteado)  from  NumeroSorteado n group by  n.numeroSorteado")
 	public List<Object[]> getCountNumeroSorteios();
 
 }
