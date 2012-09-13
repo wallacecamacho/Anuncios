@@ -25,7 +25,6 @@ public interface TemplateQuery extends Serializable{
 	 		"union select t.dezena6 dez,idSorteio  from Sorteio t ")
 	   public List<Sorteio> getAllSorteiosG();
 	
-	 @Query("select   n.numeroSorteado  from  NumeroSorteado n group by  n.numeroSorteado")
-	   public List<NumeroSorteado> getCountNumeroSorteios();
+
 
 }

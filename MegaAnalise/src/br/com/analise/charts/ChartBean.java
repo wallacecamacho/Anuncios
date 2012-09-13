@@ -1,8 +1,10 @@
 package br.com.analise.charts;
 
+import java.math.BigInteger;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
+import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 import javax.persistence.EntityManager;
@@ -10,11 +12,14 @@ import javax.persistence.EntityManager;
 import org.primefaces.model.chart.CartesianChartModel;
 import org.primefaces.model.chart.ChartSeries;
 
+import br.com.analise.bean.query.TemplateNativeQuery;
 import br.com.analise.bean.query.TemplateQuery;
 import br.com.analise.data.AnaliseRepository;
 import br.com.analise.model.NumeroSorteado;
+import br.com.analise.model.Sorteio;
 
 @Named("chartBean")
+@RequestScoped
 public class ChartBean {
 
 	@Inject
@@ -22,12 +27,12 @@ public class ChartBean {
 	private EntityManager em;
 	
 	@Inject
-	TemplateQuery templateQuery;
+	TemplateNativeQuery templateNativeQuery;
 	
     private CartesianChartModel categoryModel;  
     
     public ChartBean() {  
-        createCategoryModel();  
+        
     }  
   
     public CartesianChartModel getCategoryModel() {  
@@ -35,25 +40,21 @@ public class ChartBean {
     }  
     
     @PostConstruct
-    private void createCategoryModel() {  
+    public void createCategoryModel() {  
         categoryModel = new CartesianChartModel();  
   
         ChartSeries numeros = new ChartSeries();  
-        numeros.setLabel("numeros");  
+        numeros.setLabel("números sorteados");  
   
-        numeros.set("2004", 120);  
-        numeros.set("2005", 100);  
-        numeros.set("2006", 44);  
-        numeros.set("2007", 150);  
-        numeros.set("2008", 25);  
-  
-        for(NumeroSorteado sor: numerosSoreios()){
-        	numeros.set("2004", 120); 
+      
+        for(Object[] sor: numerosSoreios()){
+        	
+        	numeros.set(sor[0],new Integer (sor[1].toString())); 
         }
         
       
         categoryModel.addSeries(numeros);  
-
+        
     }  
     
 /*	public List<NumeroSorteado> buscaUf() throws Exception{
@@ -75,9 +76,9 @@ public class ChartBean {
 		return em.createQuery(criteriaQuery).getSingleResult();		
 	}*/
     
-    public List<NumeroSorteado> numerosSoreios(){
+    public List<Object[]> numerosSoreios(){
         	
-    	List<NumeroSorteado>  teste = templateQuery.getCountNumeroSorteios();
+    	List<Object[]>  teste = templateNativeQuery.getCountNumeroSorteios();
     	
     	return teste;
     	
