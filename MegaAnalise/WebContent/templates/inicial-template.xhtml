@@ -3,7 +3,7 @@
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
-	xmlns:p="http://primefaces.prime.com.tr/ui">
+	xmlns:p="http://primefaces.org/ui">
 
 
 <f:view contentType="text/html">
@@ -48,16 +48,14 @@
 				</h:panelGrid>
 
 				<p:menubar autoSubmenuDisplay="true">
-					<p:submenu label="Home" icon="ui-icon-document">
-						<p:submenu label="New" icon="ui-icon-contact">
-							<p:menuitem value="Project" url="#" helpText="CTRL+N" />
-							<p:menuitem value="Other" url="#" helpText="CTRL+O" />
+					<p:submenu label="Sorteio" icon="ui-icon-document">
+						<p:submenu label="Cadastrar Sorteios" icon="ui-icon-contact">
+							<p:menuitem value="Upload Sorteios Anteriores " url="/index.jsf" helpText="CTRL+N" />
 						</p:submenu>
 						<p:menuitem value="Open" url="#" />
-						<p:menuitem value="Quit" url="#" />
 					</p:submenu>
 
-<p:menuitem  url="/cadastroAnuncio.jsf" value="Cadastro"/>
+<p:menuitem  url="/relatorio.jsf" value="Gráficos"/>
 
 					
 				</p:menubar>
