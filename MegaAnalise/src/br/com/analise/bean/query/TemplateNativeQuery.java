@@ -9,9 +9,12 @@ import br.com.analise.handler.services.QueryNativeService;
 @QueryNativeService
 public interface TemplateNativeQuery extends Serializable{
 
-	 @Query("select  s.dezena1 dez,  s.idsorteio   from sorteio s union select s.dezena1 dez,  s.idsorteio   from sorteio s" +
-	 		"	 	union select s.dezena1 dez,  s.idsorteio   from sorteio s union select s.dezena1 dez,  s.idsorteio   from sorteio s" +
-	 		"	 	union select s.dezena1 dez,  s.idsorteio   from sorteio s union select s.dezena1 dez,  s.idsorteio   from sorteio s order by 1")
-	   public List<Object[]> getAllSorteios();
-	
+	@Query("select  s.dezena1 dez,  s.idsorteio   from sorteio s union select s.dezena1 dez,  s.idsorteio   from sorteio s" +
+			"	 	union select s.dezena1 dez,  s.idsorteio   from sorteio s union select s.dezena1 dez,  s.idsorteio   from sorteio s" +
+			"	 	union select s.dezena1 dez,  s.idsorteio   from sorteio s union select s.dezena1 dez,  s.idsorteio   from sorteio s order by 1")
+	public List<Object[]> getAllSorteios();
+
+	@Query("select  n.numeroSorteado, count(n.numeroSorteado)  from  NumeroSorteado n group by  n.numeroSorteado")
+	public List<Object[]> getCountNumeroSorteios();
+
 }
