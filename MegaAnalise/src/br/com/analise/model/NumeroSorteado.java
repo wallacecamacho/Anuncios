@@ -12,7 +12,12 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name="numeroSorteado" )
-public class NumeroSorteado {
+public class NumeroSorteado implements java.io.Serializable {
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -2369010450080615793L;
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
