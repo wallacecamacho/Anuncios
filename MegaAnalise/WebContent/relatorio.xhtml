@@ -15,11 +15,11 @@
 
 Cadastro
 <p:separator />
-<h:panelGrid columns="1"  style="width:70%" >
+<h:panelGrid columns="1"  style="width:80%" >
 
 
-<p:barChart id="basic" value="#{sorteioAction.categoryModel}" legendPosition="ne"  
-            title="Basic Bar Chart" min="0" max="200" style="height:300px"/>  
+<p:barChart id="basic" value="#{chartBean.categoryModel}" legendPosition="ne" title="Basic Bar Chart" style="height:300px" animate="false" 
+yaxisLabel="Qtd" xaxisLabel="numeros" />  
 
 
 
