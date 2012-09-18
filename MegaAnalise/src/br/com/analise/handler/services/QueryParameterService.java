@@ -5,12 +5,13 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
+import org.jboss.solder.serviceHandler.ServiceHandlerType;
+
+import br.com.analise.handler.QueryParameterHandler;
+
+@ServiceHandlerType(QueryParameterHandler.class)
 @Retention(RetentionPolicy.RUNTIME)
-@Target({ElementType.METHOD})
-public @interface QueryParameter {
-	
-	String value();
-	int[] namedParams();
-	int[] params();
+@Target({ElementType.TYPE})
+public @interface  QueryParameterService {
 
 }
