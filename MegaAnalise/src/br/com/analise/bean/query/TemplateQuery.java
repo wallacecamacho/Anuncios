@@ -5,7 +5,6 @@ import java.util.List;
 
 import br.com.analise.handler.services.Query;
 import br.com.analise.handler.services.QueryService;
-import br.com.analise.model.NumeroSorteado;
 import br.com.analise.model.Sorteio;
 
 
