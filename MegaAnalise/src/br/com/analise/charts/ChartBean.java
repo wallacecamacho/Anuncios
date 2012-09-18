@@ -31,6 +31,7 @@ public class ChartBean {
 	
     private CartesianChartModel categoryModel;  
     
+
     public ChartBean() {  
         
     }  
@@ -56,6 +57,8 @@ public class ChartBean {
         categoryModel.addSeries(numeros);  
         
     }  
+    
+    
     
 /*	public List<NumeroSorteado> buscaUf() throws Exception{
 
