@@ -7,9 +7,11 @@ import java.lang.annotation.Target;
 
 @Retention(RetentionPolicy.RUNTIME)
 @Target({ElementType.METHOD})
-public @interface Query {
 
-	String value();
-		
+public @interface QueryParameter {
 	
+	String value();
+	int[] namedParams();
+	int[] params();
+
 }
