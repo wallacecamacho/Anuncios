@@ -55,7 +55,7 @@ public class CombAnalise {
 					
 					//
 					for(NumeroSorteado sort: contemNumero){
-					for(NumeroSorteado num2 : numerosSort ){
+					for(NumeroSorteado num2 : numerosSort ){ //segundo nível
 						
 							
 							if(num2.getNumeroSorteado()==sort.getNumeroSorteado() ){
