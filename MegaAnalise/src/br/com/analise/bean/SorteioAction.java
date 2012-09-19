@@ -170,6 +170,7 @@ public class SorteioAction implements Serializable{
 		
 		logger.info("  " + sorteios.size());
 		
+		
 		return "teste";
 	}
 
@@ -191,5 +192,6 @@ public class SorteioAction implements Serializable{
 	public List<Sorteio> buscaSorteios(){
 		return templateQuery.getAllSorteios();
 	}
+	
 
 }
