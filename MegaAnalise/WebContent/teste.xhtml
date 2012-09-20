@@ -10,15 +10,15 @@
 
 
 <ui:define name="center">
-<h:form enctype="multipart/form-data"> 
+<h:form > 
 
 
 Cadastro
 <p:separator />
+<h:panelGrid columns="1"  style="width:90%" >
 
 
-
-
+<p:barChart id="basic" value="#{chartBean.categoryModel}" legendPosition="ne" title="Basic Bar Chart"  />  
 
 
 

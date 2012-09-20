@@ -18,10 +18,9 @@ public interface TemplateNativeQuery extends Serializable{
 	public List<Object[]> getCountNumeroSorteios();
 	
 	
-	@Query("select  sorteio from analise.numerosorteado group by sorteio")
+	@Query("select  sorteio from numerosorteado group by sorteio")
 	public List<Object> getCountSorteios();
 	
-	@Query("select  sorteio from analise.numerosorteado where sorteio")
-	public List<Object> getNumeroPorSorteio();	
+
 
 }

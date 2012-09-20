@@ -1,36 +1,29 @@
 package br.com.analise.charts;
 
-import java.math.BigInteger;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
-import javax.persistence.EntityManager;
 
 import org.primefaces.model.chart.CartesianChartModel;
 import org.primefaces.model.chart.ChartSeries;
 
+import br.com.analise.algorithm.CombAnalise;
 import br.com.analise.bean.query.TemplateNativeQuery;
-import br.com.analise.bean.query.TemplateQuery;
-import br.com.analise.data.AnaliseRepository;
-import br.com.analise.model.NumeroSorteado;
-import br.com.analise.model.Sorteio;
 
 @Named("chartBean")
 @RequestScoped
 public class ChartBean {
 
-	@Inject
-	@AnaliseRepository
-	private EntityManager em;
 	
 	@Inject
 	TemplateNativeQuery templateNativeQuery;
 	
     private CartesianChartModel categoryModel;  
     
+
     public ChartBean() {  
         
     }  
@@ -56,6 +49,8 @@ public class ChartBean {
         categoryModel.addSeries(numeros);  
         
     }  
+    
+    
     
 /*	public List<NumeroSorteado> buscaUf() throws Exception{
 
@@ -83,5 +78,12 @@ public class ChartBean {
     	return teste;
     	
     }
+    
+	public void teste(){
+		
+		CombAnalise combAnalise = new CombAnalise();
+		combAnalise.verificaCombinacoes();
+	}
+
     
 }
