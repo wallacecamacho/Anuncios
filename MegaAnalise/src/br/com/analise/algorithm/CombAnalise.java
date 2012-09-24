@@ -32,7 +32,7 @@ public class CombAnalise {
 	public void verificaCombinacoes(){
 		
 		
-		
+		List<Object> testes = listaResultados();
 		
 		
 		//Quantidade de sorteios realizados
@@ -120,7 +120,7 @@ public class CombAnalise {
 	
 	
 	public List<Object> executeQuery(String query, String namedParams[],	Object... params) {
-		javax.persistence.Query q = em.createNamedQuery(query);
+		javax.persistence.Query q = em.createNativeQuery(query);
 		
 		if (namedParams != null) {
 			for (int i = 0; i < namedParams.length; i++) {
@@ -132,16 +132,16 @@ public class CombAnalise {
 	}
 	
 
-	public void listaResultados(){
+	public List<Object> listaResultados(){
 		
 		String[] vetNamedParam = {"param"};
 		//Integer[] vetParams = {1};
 		Integer vetParams1 = 1;
-		executeQuery(listaResultados, vetNamedParam, vetParams1 );
+	return	executeQuery(listaResultados, vetNamedParam, vetParams1 );
 		
 	}
 	
-	private static String listaResultados = "select  s.dezena1 dez,  s.dezena2,  s.dezena3, s.dezena4, s.dezena5, s.dezena6, s.idSorteio  from sorteio s " +
-			"where s.s.dezena1 = :param or s.s.dezena2 = :param or s.s.dezena3 = :param or s.s.dezena4 = :param or s.s.dezena5 = :param or s.s.dezena5 = :param or s.s.dezena6 = :param  ";
+	private static String listaResultados = "select  s.dezena1 dez,  s.dezena2,  s.dezena3, s.dezena4, s.dezena5, s.dezena6, s.idSorteio  from Sorteio s " +
+			"where s.dezena1 = :param or s.dezena2 = :param or s.dezena3 = :param or s.dezena4 = :param or s.dezena5 = :param or s.dezena6 = :param  ";
 	
 }
