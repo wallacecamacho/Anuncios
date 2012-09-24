@@ -31,6 +31,10 @@ public class CombAnalise {
 	
 	public void verificaCombinacoes(){
 		
+		
+		
+		
+		
 		//Quantidade de sorteios realizados
 		List<Object>  qtdSorteios = templateNativeQuery.getCountSorteios();
 		
@@ -112,5 +116,32 @@ public class CombAnalise {
 		return em.createQuery(criteriaQuery).getResultList();	
 
 	}
+	
+	
+	
+	public List<Object> executeQuery(String query, String namedParams[],	Object... params) {
+		javax.persistence.Query q = em.createNamedQuery(query);
+		
+		if (namedParams != null) {
+			for (int i = 0; i < namedParams.length; i++) {
+				q.setParameter(namedParams[i], params[i]);
+			}
+		}
+
+		return q.getResultList();
+	}
+	
+
+	public void listaResultados(){
+		
+		String[] vetNamedParam = {"param"};
+		//Integer[] vetParams = {1};
+		Integer vetParams1 = 1;
+		executeQuery(listaResultados, vetNamedParam, vetParams1 );
+		
+	}
+	
+	private static String listaResultados = "select  s.dezena1 dez,  s.dezena2,  s.dezena3, s.dezena4, s.dezena5, s.dezena6, s.idSorteio  from sorteio s " +
+			"where s.s.dezena1 = :param or s.s.dezena2 = :param or s.s.dezena3 = :param or s.s.dezena4 = :param or s.s.dezena5 = :param or s.s.dezena5 = :param or s.s.dezena6 = :param  ";
 	
 }
