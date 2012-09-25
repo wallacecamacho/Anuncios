@@ -29,11 +29,21 @@ public class CombAnalise {
 	@Inject
 	TemplateNativeQuery templateNativeQuery;
 	
+	
 	public void verificaCombinacoes(){
 		
 		
-		List<Object> testes = listaResultados();
+		//List<Object> testes = listaResultados();
 		
+		List<Object[]>  qtdNumSorteios = templateNativeQuery.getCountNumeroSorteios();
+		
+		for(Object[] objI : qtdNumSorteios){
+			
+			for(Object objJ : objI){
+		//	listaResultados(objI)
+			logger.info("Sorteio de numero = " + objJ);
+			}
+		}
 		
 		//Quantidade de sorteios realizados
 		List<Object>  qtdSorteios = templateNativeQuery.getCountSorteios();
@@ -132,12 +142,12 @@ public class CombAnalise {
 	}
 	
 
-	public List<Object> listaResultados(){
+	public List<Object> listaResultados(Integer tparam){
 		
 		String[] vetNamedParam = {"param"};
 		//Integer[] vetParams = {1};
-		Integer vetParams1 = 1;
-	return	executeQuery(listaResultados, vetNamedParam, vetParams1 );
+		
+	return	executeQuery(listaResultados, vetNamedParam, tparam );
 		
 	}
 	
