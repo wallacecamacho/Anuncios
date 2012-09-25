@@ -170,6 +170,7 @@ public class SorteioAction implements Serializable{
 		
 		logger.info("  " + sorteios.size());
 		
+		
 		return "teste";
 	}
 
