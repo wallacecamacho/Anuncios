@@ -23,78 +23,112 @@ public class CombAnalise {
 	@Inject
 	@AnaliseRepository
 	private EntityManager em;
-	
+
 	private Logger logger = Logger.getLogger(this.getClass());
-	
+
 	@Inject
 	TemplateNativeQuery templateNativeQuery;
-	
-	
+
+
 	public void verificaCombinacoes(){
-		
-		
-		//List<Object> testes = listaResultados();
-		
-		List<Object[]>  qtdNumSorteios = templateNativeQuery.getCountNumeroSorteios();
-		
-		for(Object[] objI : qtdNumSorteios){
+
+
+
+		List<Object>  qtdNumSorteios = templateNativeQuery.getCountNumeros();
+
+		for(Object objI : qtdNumSorteios){
+			logger.info("Sorteio de numero = " + objI);
+
+			List<Object> resultadoPorNum =  listaResultados((Integer)objI);
+			List<Object> resultadoPorNumInner =  listaResultados((Integer)objI);
 			
-			for(Object objJ : objI){
-		//	listaResultados(objI)
-			logger.info("Sorteio de numero = " + objJ);
-			}
-		}
 		
-		//Quantidade de sorteios realizados
-		List<Object>  qtdSorteios = templateNativeQuery.getCountSorteios();
-		
-		for(Object e : qtdSorteios ){
 			
-			logger.info("Sorteio de numero = " + e.toString());
-			//logger.info("List de numero do sorteio = " + e.toString() + "  -  " + buscaNumerosdoSorteio((Integer)e).size() );
-			
-			//Busca os números do sorteio i
-			 List<NumeroSorteado> numerosSort = buscaNumerosdoSorteio((Integer)e);
-			
-			 //Para cada número do sorteio
-			for(NumeroSorteado num : numerosSort ){
-				
-				logger.info("numero sorteado = " + num.getNumeroSorteado());
-				
-				//Consulta todos os sorteios que contem o numero de i
-				//for(int i=0; i<=numerosSort.size()-1; i++){
+				for(int h = 0; h <= resultadoPorNum.size() -1; h++){
+					logger.info("iteracao = " + h);					
+					Object[] rt =	(Object[]) resultadoPorNum.get(h);
 					
-					//Consulta todos os numeros do sorteio que contem o numero de i 
-					List<NumeroSorteado> contemNumero = buscaNumeros(num.getNumeroSorteado());
 					
-					//
-					for(NumeroSorteado sort: contemNumero){
-					for(NumeroSorteado num2 : numerosSort ){ //segundo nível
+					for(int j = 0; j <= rt.length -2; j++){
+						logger.info("rt = " + rt[j]);
 						
+						for(int hj = 0; hj <= resultadoPorNum.size() -1; hj++){
 							
-							if(num2.getNumeroSorteado()==sort.getNumeroSorteado() ){
+							Object[] rtg =	(Object[]) resultadoPorNum.get(hj);
+							logger.info("rtg = " + rt[j]);
+							for(int jt = 0; jt <= rtg.length -2; jt++){
 								
-								logger.info("numero sorteado é igual = " + num.getNumeroSorteado());
-								logger.info("Sorteio a comparar = " + num2.getIdNumeroSorteado());
-								logger.info("Sorteio comparado = " + sort.getIdNumeroSorteado());
+								if(rt[j]==rtg[jt]){
+									logger.info("iteracao = " + jt);	
+								}
 								
 							}
 							
 						}
-					
-				}
+						
+					}
+
 				
-			//}
+
+				}
+
+
 			
-			}
-			
+
+
+
 		}
-			
-		
-		
+
+		//Quantidade de sorteios realizados
+		List<Object>  qtdSorteios = templateNativeQuery.getCountSorteios();
+
+		for(Object e : qtdSorteios ){
+
+			logger.info("Sorteio de numero = " + e.toString());
+			//logger.info("List de numero do sorteio = " + e.toString() + "  -  " + buscaNumerosdoSorteio((Integer)e).size() );
+
+			//Busca os números do sorteio i
+			List<NumeroSorteado> numerosSort = buscaNumerosdoSorteio((Integer)e);
+
+			//Para cada número do sorteio
+			for(NumeroSorteado num : numerosSort ){
+
+				logger.info("numero sorteado = " + num.getNumeroSorteado());
+
+				//Consulta todos os sorteios que contem o numero de i
+				//for(int i=0; i<=numerosSort.size()-1; i++){
+
+				//Consulta todos os numeros do sorteio que contem o numero de i 
+				List<NumeroSorteado> contemNumero = buscaNumeros(num.getNumeroSorteado());
+
+				//
+				for(NumeroSorteado sort: contemNumero){
+					for(NumeroSorteado num2 : numerosSort ){ //segundo nível
+
+
+						if(num2.getNumeroSorteado()==sort.getNumeroSorteado() ){
+
+							logger.info("numero sorteado é igual = " + num.getNumeroSorteado());
+							logger.info("Sorteio a comparar = " + num2.getIdNumeroSorteado());
+							logger.info("Sorteio comparado = " + sort.getIdNumeroSorteado());
+
+						}
+
+					}
+
+				}
+
+				//}
+
+			}
+
+		}
+
+
+
 	}
-	
-	
+
+
 	public List<NumeroSorteado> buscaNumerosdoSorteio(Integer pISorteio) {
 
 		CriteriaBuilder criteriaBuilder = em.getCriteriaBuilder();
@@ -102,15 +136,15 @@ public class CombAnalise {
 		Root<NumeroSorteado> numeroSorteado = criteriaQuery.from(NumeroSorteado.class);
 		Path<Object> path = numeroSorteado.join("sorteio");
 		//ParameterExpression<Integer> param = criteriaBuilder.parameter(Integer.class);
-		
+
 		//Predicate condi = criteriaBuilder.equal(numeroSorteado.get("desctTipo"), pDescricao);
-		
+
 		criteriaQuery.select(numeroSorteado).where(criteriaBuilder.equal(path, pISorteio));
-		
+
 		return em.createQuery(criteriaQuery).getResultList();	
 
 	}
-	
+
 	public List<NumeroSorteado> buscaNumeros(Integer pNum) {
 
 		CriteriaBuilder criteriaBuilder = em.getCriteriaBuilder();
@@ -118,20 +152,20 @@ public class CombAnalise {
 		Root<NumeroSorteado> numeroSorteado = criteriaQuery.from(NumeroSorteado.class);
 		//Path<Object> path = numeroSorteado.join("sorteio");
 		//ParameterExpression<Integer> param = criteriaBuilder.parameter(Integer.class);
-		
+
 		Predicate condi = criteriaBuilder.equal(numeroSorteado.get("numeroSorteado"), pNum);
-		
+
 		criteriaQuery.select(numeroSorteado).where(condi);
-		
+
 		return em.createQuery(criteriaQuery).getResultList();	
 
 	}
-	
-	
-	
+
+
+
 	public List<Object> executeQuery(String query, String namedParams[],	Object... params) {
 		javax.persistence.Query q = em.createNativeQuery(query);
-		
+
 		if (namedParams != null) {
 			for (int i = 0; i < namedParams.length; i++) {
 				q.setParameter(namedParams[i], params[i]);
@@ -140,18 +174,18 @@ public class CombAnalise {
 
 		return q.getResultList();
 	}
-	
+
 
 	public List<Object> listaResultados(Integer tparam){
-		
+
 		String[] vetNamedParam = {"param"};
 		//Integer[] vetParams = {1};
-		
-	return	executeQuery(listaResultados, vetNamedParam, tparam );
-		
+
+		return	executeQuery(listaResultados, vetNamedParam, tparam );
+
 	}
-	
+
 	private static String listaResultados = "select  s.dezena1 dez,  s.dezena2,  s.dezena3, s.dezena4, s.dezena5, s.dezena6, s.idSorteio  from Sorteio s " +
 			"where s.dezena1 = :param or s.dezena2 = :param or s.dezena3 = :param or s.dezena4 = :param or s.dezena5 = :param or s.dezena6 = :param  ";
-	
+
 }
