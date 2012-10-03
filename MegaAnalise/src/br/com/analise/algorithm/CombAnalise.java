@@ -1,7 +1,12 @@
 package br.com.analise.algorithm;
 
+import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
+import java.util.TreeMap;
 
+import javax.enterprise.context.SessionScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 import javax.persistence.EntityManager;
@@ -18,7 +23,8 @@ import br.com.analise.data.AnaliseRepository;
 import br.com.analise.model.NumeroSorteado;
 
 @Named("combAnalise")
-public class CombAnalise {
+@SessionScoped
+public class CombAnalise implements Serializable{
 
 	@Inject
 	@AnaliseRepository
@@ -28,15 +34,23 @@ public class CombAnalise {
 
 	@Inject
 	TemplateNativeQuery templateNativeQuery;
+	
 
+	Map mapaComb = new TreeMap();
 
 	public void verificaCombinacoes(){
 
 
 
 		List<Object>  qtdNumSorteios = templateNativeQuery.getCountNumeros();
-
+		
+		//quantidade de numeros para analisar (numeros da cartela)
+		
+		inicio:
 		for(Object objI : qtdNumSorteios){
+			
+			List listaComb = new ArrayList();
+			
 			logger.info("Sorteio de numero = " + objI);
 
 			List<Object> resultadoPorNum =  listaResultados((Integer)objI);
@@ -52,14 +66,32 @@ public class CombAnalise {
 					for(int j = 0; j <= rt.length -2; j++){
 						logger.info("rt = " + rt[j]);
 						
+						iteracao1:
 						for(int hj = 0; hj <= resultadoPorNum.size() -1; hj++){
 							
 							Object[] rtg =	(Object[]) resultadoPorNum.get(hj);
-							logger.info("rtg = " + rt[j]);
+							
 							for(int jt = 0; jt <= rtg.length -2; jt++){
+								logger.info("rtg = " + rtg[jt]);
 								
-								if(rt[j]==rtg[jt]){
+								logger.info("Iteração de comparação - iterando o item  " +rt[j] +" do sorteio " + rt[rt.length-1]);
+								
+								logger.info("comparando o item  " +rtg[jt] +" do sorteio " + rtg[rtg.length-1]);
+								
+								if( rt[rt.length-1] == rtg[rtg.length-1] ){
+									continue iteracao1;
+								}
+								
+								//excluindo o mesmo sorteio e comparação de um numero da cartela com o numero de objI
+								if( (rt[j] != objI) && (rt[rt.length-1] != rtg[rtg.length-1] )){
 									logger.info("iteracao = " + jt);	
+									
+									if( rt[j] == rtg[jt] ){
+										listaComb.add(rtg);
+										
+									}
+									
+									
 								}
 								
 							}
@@ -74,11 +106,13 @@ public class CombAnalise {
 
 
 			
-
+				mapaComb.put(objI, listaComb);
 
 
 		}
 
+		
+		/*
 		//Quantidade de sorteios realizados
 		List<Object>  qtdSorteios = templateNativeQuery.getCountSorteios();
 
@@ -124,7 +158,7 @@ public class CombAnalise {
 
 		}
 
-
+		*/
 
 	}
 
