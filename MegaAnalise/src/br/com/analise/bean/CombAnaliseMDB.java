@@ -12,6 +12,7 @@ import javax.ejb.MessageDriven;
 import javax.ejb.MessageDrivenContext;
 import javax.jms.JMSException;
 import javax.jms.Message;
+import javax.jms.MessageListener;
 import javax.jms.ObjectMessage;
 import javax.sql.DataSource;
 
@@ -25,7 +26,7 @@ import br.com.analise.algorithm.CombAnalise;
 		      @ActivationConfigProperty( propertyName = "destination", propertyValue ="/queue/queueAnalise")
 		   }
 		)
-public class CombAnaliseMDB {
+public class CombAnaliseMDB  implements MessageListener {
 
 	  private Connection connection;
 	  private DataSource dataSource;
@@ -34,7 +35,7 @@ public class CombAnaliseMDB {
 	  @Resource
 	  private MessageDrivenContext context;
 
-	  @Resource(name = "jdbc/AnaliseDS", mappedName = "java:/AnaliseDS")
+	  @Resource(name = "java:/jdbc/AnalisemegaDS")
 	  public void setDataSource(DataSource dataSource) {
 	    this.dataSource = dataSource;
 	  }
@@ -62,15 +63,15 @@ public class CombAnaliseMDB {
 	    try {
 	      ObjectMessage objectMessage = (ObjectMessage) message;
 	      CombAnalise combAnalise = (CombAnalise) objectMessage.getObject();
-	      processShippingRequest(combAnalise);
+	    //  processShippingRequest(combAnalise);
 	      System.out.println("Shipping request processed.");
 	    } catch (JMSException jmse) {
 	        jmse.printStackTrace();
 	        context.setRollbackOnly();
-	    } catch (SQLException sqle) {
-	        sqle.printStackTrace();
-	        context.setRollbackOnly();
-	    }
+	    }// catch (SQLException sqle) {
+	   //     sqle.printStackTrace();
+	   //     context.setRollbackOnly();
+	   // }
 	  }
 	  
 	  // This method would use JPA in the real world to persist the data   
