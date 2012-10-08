@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
 
+import javax.enterprise.context.RequestScoped;
 import javax.enterprise.context.SessionScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
@@ -23,7 +24,7 @@ import br.com.analise.data.AnaliseRepository;
 import br.com.analise.model.NumeroSorteado;
 
 @Named("combAnalise")
-@SessionScoped
+@RequestScoped
 public class CombAnalise implements Serializable{
 
 	@Inject
@@ -221,5 +222,9 @@ public class CombAnalise implements Serializable{
 
 	private static String listaResultados = "select  s.dezena1 dez,  s.dezena2,  s.dezena3, s.dezena4, s.dezena5, s.dezena6, s.idSorteio  from Sorteio s " +
 			"where s.dezena1 = :param or s.dezena2 = :param or s.dezena3 = :param or s.dezena4 = :param or s.dezena5 = :param or s.dezena6 = :param  ";
+	
+	public void teste(){
+		logger.info("chamadaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
+	}
 
 }

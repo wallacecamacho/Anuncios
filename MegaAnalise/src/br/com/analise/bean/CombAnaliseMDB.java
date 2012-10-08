@@ -1,6 +1,7 @@
 package br.com.analise.bean;
 
 import java.sql.Connection;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
@@ -16,6 +17,8 @@ import javax.jms.MessageListener;
 import javax.jms.ObjectMessage;
 import javax.sql.DataSource;
 
+import org.jboss.logging.Logger;
+
 import br.com.analise.algorithm.CombAnalise;
 
 
@@ -28,6 +31,8 @@ import br.com.analise.algorithm.CombAnalise;
 		)
 public class CombAnaliseMDB  implements MessageListener {
 
+	  private Logger LOGGER = Logger.getLogger(CombAnaliseMDB.class);
+	
 	  private Connection connection;
 	  private DataSource dataSource;
 	
@@ -63,24 +68,30 @@ public class CombAnaliseMDB  implements MessageListener {
 	    try {
 	      ObjectMessage objectMessage = (ObjectMessage) message;
 	      CombAnalise combAnalise = (CombAnalise) objectMessage.getObject();
+	      LOGGER.info(" Inicio do processamento  ");
+	      combAnalise.verificaCombinacoes();
 	    //  processShippingRequest(combAnalise);
-	      System.out.println("Shipping request processed.");
+	      LOGGER.info("  ");
 	    } catch (JMSException jmse) {
 	        jmse.printStackTrace();
 	        context.setRollbackOnly();
-	    }// catch (SQLException sqle) {
-	   //     sqle.printStackTrace();
-	   //     context.setRollbackOnly();
-	   // }
+	    } //catch (SQLException sqle) {
+	        //sqle.printStackTrace();
+	        //context.setRollbackOnly();
+	    //}
 	  }
 	  
 	  // This method would use JPA in the real world to persist the data   
 	  private void processShippingRequest(CombAnalise request) throws SQLException {
 	    Statement statement = connection.createStatement();
-	    String sql = "INSERT INTO " + "SHIPPING_REQUESTS(" + "ITEM, ";
+	    String sql = "select * from sorteio";
 	                
 	    System.out.println(sql);
-	    statement.execute(sql);
+	   ResultSet set = statement.executeQuery(sql);
+	    while(set.next()){
+	    	LOGGER.info( set.getInt(1));
+	    }
+	    
 	  }
 	
 }
